@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drive+ | Slimme opslag</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <h1>Drive<span>+</span></h1>
+        <p class="subtitle">Een betere cloud werkruimte</p>
+
+        <nav>
+          <button class="nav-btn active" data-filter="all">Alles</button>
+          <button class="nav-btn" data-filter="starred">Favorieten</button>
+          <button class="nav-btn" data-filter="recent">Recent</button>
+        </nav>
+
+        <section class="panel">
+          <h2>Map maken</h2>
+          <form id="folder-form">
+            <input
+              type="text"
+              id="folder-name"
+              placeholder="Bijv. Marketing 2026"
+              required
+            />
+            <button type="submit">Nieuwe map</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <h2>Bestanden uploaden</h2>
+          <label class="upload-label" for="file-input">Kies bestanden</label>
+          <input type="file" id="file-input" multiple />
+        </section>
+      </aside>
+
+      <main class="main-content">
+        <header>
+          <div>
+            <h2>Jouw slimme bibliotheek</h2>
+            <p>
+              Zoek razendsnel, markeer favorieten en beheer alles in één overzicht.
+            </p>
+          </div>
+          <div class="toolbar">
+            <input id="search-input" type="search" placeholder="Zoek op naam of type..." />
+            <select id="sort-select">
+              <option value="recent">Nieuwste eerst</option>
+              <option value="name">Naam (A-Z)</option>
+              <option value="size">Grootte (hoog-laag)</option>
+            </select>
+          </div>
+        </header>
+
+        <section class="stats" id="stats"></section>
+
+        <section>
+          <h3>Items</h3>
+          <div id="item-grid" class="item-grid"></div>
+        </section>
+      </main>
+    </div>
+
+    <template id="item-card-template">
+      <article class="item-card">
+        <div class="item-icon"></div>
+        <div class="item-meta">
+          <h4></h4>
+          <p></p>
+        </div>
+        <div class="item-actions">
+          <button class="star-btn" title="Markeer als favoriet">☆</button>
+          <button class="delete-btn" title="Verwijder">🗑</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
