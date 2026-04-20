@@ -3,82 +3,261 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Drive+ | Slimme opslag</title>
+    <title>Basiswerkstukken | Werkvoorbereider</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <aside class="sidebar">
-        <h1>Drive<span>+</span></h1>
-        <p class="subtitle">Een betere cloud werkruimte</p>
+    <div class="page-shell">
+      <aside class="control-panel">
+        <div class="brand-block">
+          <p class="eyebrow">OWB Basiswerkstukken</p>
+          <h1>Werkvoorbereider</h1>
+          <p class="intro">
+            Bouw werkvoorbereidingen op volgens het voorbeeld uit het boekje, met
+            werkstukgegevens uit de werktekeningen.
+          </p>
+        </div>
 
-        <nav>
-          <button class="nav-btn active" data-filter="all">Alles</button>
-          <button class="nav-btn" data-filter="starred">Favorieten</button>
-          <button class="nav-btn" data-filter="recent">Recent</button>
-        </nav>
-
-        <section class="panel">
-          <h2>Map maken</h2>
-          <form id="folder-form">
-            <input
-              type="text"
-              id="folder-name"
-              placeholder="Bijv. Marketing 2026"
-              required
-            />
-            <button type="submit">Nieuwe map</button>
-          </form>
+        <section class="preset-panel">
+          <div class="section-heading">
+            <h2>Werkstuk kiezen</h2>
+            <p>Kies een basiswerkstuk en vul daarna jouw voorbereiding aan.</p>
+          </div>
+          <div id="preset-list" class="preset-list"></div>
         </section>
 
-        <section class="panel">
-          <h2>Bestanden uploaden</h2>
-          <label class="upload-label" for="file-input">Kies bestanden</label>
-          <input type="file" id="file-input" multiple />
+        <section class="preset-panel">
+          <div class="section-heading">
+            <h2>Nieuwe werkvoorbereiding</h2>
+            <p>Sla je huidige formulier op als eigen werkstuk.</p>
+          </div>
+          <div class="form-actions compact-actions">
+            <button type="button" class="primary-btn" id="save-workpiece-btn">
+              Opslaan als nieuw werkstuk
+            </button>
+            <button type="button" class="ghost-btn" id="delete-workpiece-btn">
+              Eigen werkstuk verwijderen
+            </button>
+          </div>
+          <p id="custom-workpiece-status" class="inline-status"></p>
         </section>
+
+        <form id="prep-form" class="prep-form">
+          <section class="form-section">
+            <div class="section-heading">
+              <h2>Werktekening uploaden</h2>
+              <p>Upload een PDF van de werktekening. De app probeert dan automatisch velden in te vullen.</p>
+            </div>
+
+            <label>
+              Werktekening
+              <input id="drawing-file" name="drawingFile" type="file" accept=".pdf,image/*" />
+            </label>
+            <p id="drawing-upload-status" class="inline-status"></p>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading">
+              <h2>Student</h2>
+              <p>Vul de gegevens in zoals bovenaan het boekje staan.</p>
+            </div>
+
+            <div class="field-row">
+              <label>
+                Naam student
+                <input id="student-name" name="studentName" type="text" required />
+              </label>
+              <label>
+                Klas
+                <input id="student-class" name="studentClass" type="text" required />
+              </label>
+            </div>
+
+            <label>
+              Paraaf docent
+              <input id="teacher-signoff" name="teacherSignoff" type="text" placeholder="Bijv. nog te laten aftekenen" />
+            </label>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading">
+              <h2>Werkstukinformatie</h2>
+              <p>Gegevens uit de werktekening en het gekozen basiswerkstuk.</p>
+            </div>
+
+            <label>
+              Naam werkstuk
+              <input id="workpiece-name" name="workpieceName" type="text" required />
+            </label>
+
+            <div class="field-row">
+              <label>
+                Machine
+                <input id="machine" name="machine" type="text" required />
+              </label>
+              <label>
+                Materiaal
+                <input id="material" name="material" type="text" required />
+              </label>
+            </div>
+
+            <div class="field-row">
+              <label>
+                Tekeningnummer
+                <input id="drawing-number" name="drawingNumber" type="text" />
+              </label>
+              <label>
+                Formaat / schaal
+                <input id="drawing-scale" name="drawingScale" type="text" />
+              </label>
+            </div>
+
+            <label>
+              Belangrijkste maten / kenmerken
+              <textarea
+                id="dimensions"
+                name="dimensions"
+                rows="3"
+                placeholder="Bijv. 43 +/- 0,5, diameters 18-14-10-6, 1 x 45 graden"
+                required
+              ></textarea>
+            </label>
+          </section>
+
+          <section class="form-section">
+            <div class="section-heading">
+              <h2>Uitvoering</h2>
+              <p>Input voor de werkvoorbereidingstabel zoals in het boekje.</p>
+            </div>
+
+            <label>
+              Opspanningen
+              <input id="setups" name="setups" type="number" min="1" max="6" required />
+            </label>
+
+            <label>
+              Hoofdbewerkingen
+              <textarea
+                id="operations"
+                name="operations"
+                rows="4"
+                placeholder="Opspannen, vlakken, nullen, afdraaien, boren, tappen"
+                required
+              ></textarea>
+            </label>
+
+            <label>
+              Opspan- en machinegereedschap
+              <input
+                id="workholding"
+                name="workholding"
+                type="text"
+                placeholder="Drieklauw, spantang, machineklem, centerfix"
+                required
+              />
+            </label>
+
+            <label>
+              Snijgereedschap
+              <input
+                id="cutting-tools"
+                name="cuttingTools"
+                type="text"
+                placeholder="DCGT, centerboor, boor 5,2, frees 12, tap M6"
+                required
+              />
+            </label>
+
+            <label>
+              Meetgereedschap
+              <input
+                id="measuring-tools"
+                name="measuringTools"
+                type="text"
+                placeholder="Schuifmaat, digitale uitlezing, blote vinger"
+                required
+              />
+            </label>
+
+            <label>
+              Extra aandachtspunten
+              <textarea
+                id="notes"
+                name="notes"
+                rows="3"
+                placeholder="Bijv. ontbramen, toerental tabel gebruiken, meetrapport invullen, in maximaal 2 opspanningen"
+              ></textarea>
+            </label>
+          </section>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Werkvoorbereiding opbouwen</button>
+            <button type="button" class="ghost-btn" id="reset-btn">Reset</button>
+          </div>
+        </form>
       </aside>
 
-      <main class="main-content">
-        <header>
+      <main class="result-panel">
+        <header class="hero-card">
           <div>
-            <h2>Jouw slimme bibliotheek</h2>
-            <p>
-              Zoek razendsnel, markeer favorieten en beheer alles in één overzicht.
-            </p>
+            <p class="eyebrow">Werkvoorbereiding volgens boekje</p>
+            <h2 id="output-title">Werkvoorbereiding</h2>
+            <p id="output-summary" class="hero-copy"></p>
           </div>
-          <div class="toolbar">
-            <input id="search-input" type="search" placeholder="Zoek op naam of type..." />
-            <select id="sort-select">
-              <option value="recent">Nieuwste eerst</option>
-              <option value="name">Naam (A-Z)</option>
-              <option value="size">Grootte (hoog-laag)</option>
-            </select>
-          </div>
+          <div class="hero-stats" id="hero-stats"></div>
         </header>
 
-        <section class="stats" id="stats"></section>
+        <section class="result-card full-width">
+          <div class="card-title">
+            <h3>Titelblok</h3>
+            <p>Gebaseerd op de structuur uit het werkvoorbereidingsboekje en de werktekening.</p>
+          </div>
+          <div id="title-block" class="handover-block"></div>
+        </section>
 
-        <section>
-          <h3>Items</h3>
-          <div id="item-grid" class="item-grid"></div>
+        <section class="result-card full-width">
+          <div class="card-title">
+            <h3>Werkvoorbereidingstabel</h3>
+            <p>Kolommen: opspanning, bewerking, machine/opspangereedschap, snijgereedschap, meetgereedschap en tijd.</p>
+          </div>
+          <div class="table-wrap">
+            <table class="prep-table">
+              <thead>
+                <tr>
+                  <th>Opsp.</th>
+                  <th>Omschrijving van bewerking</th>
+                  <th>Machine &amp; opspangereedschap</th>
+                  <th>Snijgereedschap</th>
+                  <th>Meetgereedschap</th>
+                  <th>Tijd</th>
+                </tr>
+              </thead>
+              <tbody id="prep-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="result-grid">
+          <article class="result-card">
+            <div class="card-title">
+              <h3>Volgorde</h3>
+              <p>Logische opbouw per opspanning.</p>
+            </div>
+            <ol id="phase-list" class="number-list"></ol>
+          </article>
+
+          <article class="result-card">
+            <div class="card-title">
+              <h3>Controlepunten</h3>
+              <p>Uit het boekje afgeleid voor maatvoering, afwerking en oplevering.</p>
+            </div>
+            <ul id="quality-list" class="bullet-list"></ul>
+          </article>
         </section>
       </main>
     </div>
 
-    <template id="item-card-template">
-      <article class="item-card">
-        <div class="item-icon"></div>
-        <div class="item-meta">
-          <h4></h4>
-          <p></p>
-        </div>
-        <div class="item-actions">
-          <button class="star-btn" title="Markeer als favoriet">☆</button>
-          <button class="delete-btn" title="Verwijder">🗑</button>
-        </div>
-      </article>
-    </template>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
